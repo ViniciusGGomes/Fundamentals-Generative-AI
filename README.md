@@ -1,25 +1,22 @@
-# Fundamentos de IA Generativa - Etapa 1 🚀
+# Fundamentos de IA Generativa - Etapa 2 🚀
 
-Este projeto tem como objetivo explorar os fundamentos de **IA Generativa** integrada a uma aplicação **Node.js com TypeScript**.  
-A cada etapa, o projeto será expandido e documentado neste repositório.
+Dando continuidade ao projeto de estudo sobre **IA Generativa com Node.js e TypeScript**, nesta segunda etapa o foco foi **estruturar os dados de saída** da API da OpenAI para trabalhar com informações de forma mais confiável e programática.
 
 ---
 
-## 📌 Etapa 1 - Criação de uma API básica com IA
+## 📌 Objetivo da Etapa 2
 
-Nesta primeira etapa, foi desenvolvida uma API simples utilizando:
+- Usar diferentes ferramentas da OpenAI para gerar **saídas estruturadas**.
+- Entender o problema de trabalhar apenas com **respostas em texto puro**, quando a aplicação precisa de dados em formato manipulável.
+- Explorar ferramentas como:
+  - **JSON Mode**
+  - **Structured Outputs** (com validação usando **Zod**)
 
-- **Node.js** + **TypeScript**
-- **Express** para criação de rotas
-- **dotenv** para gerenciamento de variáveis de ambiente
-- **OpenAI SDK** para interação com modelos de IA
+---
 
-### 🔧 O que foi feito:
+## 🔧 O que foi feito
 
-1. Configuração inicial do projeto com **package.json**, dependências e scripts.
-2. Criação do arquivo `.env.example` para armazenar a variável de ambiente `OPEN_AI_API_KEY`.
-3. Implementação do arquivo **app.ts**, contendo uma rota `/generate` que:
-   - Recebe uma mensagem do usuário no corpo da requisição.
-   - Envia a mensagem para a API da OpenAI.
-   - Retorna o texto gerado pela IA.
-4. Criação do arquivo **server.ts** como ponto de entrada da aplicação, configurando o servidor para rodar na porta `3333`.
+1. Implementação do **JSON Mode** (`response_format: { type: "json_object" }`) para garantir que o modelo retorne dados em JSON.
+2. Uso do **Zod** para validar a estrutura da resposta (assegurando que o objeto segue o formato esperado).
+3. Integração com o helper `zodResponseFormat` da OpenAI, permitindo que o próprio SDK faça o parsing e a validação automaticamente.
+4. Tratamento de erros para respostas inválidas ou recusadas pelo modelo.
