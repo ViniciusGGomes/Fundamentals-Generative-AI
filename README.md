@@ -1,22 +1,36 @@
-# Fundamentos de IA Generativa - Etapa 2 🚀
+# 📌 Etapa 3 — Function Calling com OpenAI
 
-Dando continuidade ao projeto de estudo sobre **IA Generativa com Node.js e TypeScript**, nesta segunda etapa o foco foi **estruturar os dados de saída** da API da OpenAI para trabalhar com informações de forma mais confiável e programática.
-
----
-
-## 📌 Objetivo da Etapa 2
-
-- Usar diferentes ferramentas da OpenAI para gerar **saídas estruturadas**.
-- Entender o problema de trabalhar apenas com **respostas em texto puro**, quando a aplicação precisa de dados em formato manipulável.
-- Explorar ferramentas como:
-  - **JSON Mode**
-  - **Structured Outputs** (com validação usando **Zod**)
+Nesta etapa, aprendi a utilizar o recurso de **Function Calling** da OpenAI.  
+O objetivo foi estruturar o código de forma organizada, simulando um fluxo onde o modelo pode **chamar funções** para buscar informações de um “banco de dados” e retornar resultados processados.
 
 ---
 
-## 🔧 O que foi feito
+## 🛠️ Estrutura do Projeto
 
-1. Implementação do **JSON Mode** (`response_format: { type: "json_object" }`) para garantir que o modelo retorne dados em JSON.
-2. Uso do **Zod** para validar a estrutura da resposta (assegurando que o objeto segue o formato esperado).
-3. Integração com o helper `zodResponseFormat` da OpenAI, permitindo que o próprio SDK faça o parsing e a validação automaticamente.
-4. Tratamento de erros para respostas inválidas ou recusadas pelo modelo.
+- **`openai.ts`**  
+  Contém a lógica de integração com a OpenAI.
+
+  - Define as **tools** (funções disponíveis para o modelo).
+  - Implementa a recursividade para lidar com chamadas de função.
+  - Faz o parse da resposta usando **Zod** para garantir que os dados retornem no formato esperado.
+
+- **`database.ts`**  
+  Simula um banco de dados em memória, armazenando uma lista de produtos com seus estoques.
+
+  - Funções expostas:
+    - `produtosEmEstoque()` → retorna apenas os nomes dos produtos disponíveis.
+    - `produtosEmFalta()` → retorna apenas os nomes dos produtos esgotados.
+
+- **`app.ts`**  
+  Cria a API com **Express**.
+
+  - Rota **POST `/generate`**: recebe um prompt do usuário, chama `generateProducts` e retorna a resposta em JSON.
+
+- **`.env`**  
+  Contém a variável de ambiente para a chave da API da OpenAI.
+  - Exemplo:
+    ```env
+    OPEN_AI_API_KEY=your_api_key_here
+    ```
+
+---
